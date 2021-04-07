@@ -11,8 +11,19 @@
 
 <body>
   <div class="container">
-    <div class="box"><h1 class="page-title">Conversor De Anos-Luz Para Quilômetros</h1></div>
+    <div class="box">
+      <h1 class="page-title">Conversor De Medidas</h1>
+    </div>
+    <div>
+      <h1>Qual o tipo de conversão você quer?</h1>
+      <input type="radio" name="tipoConversao" id="tipoConversao" value="km">
+      <label for="tipoConversao">Km para</label>
+      <input type="radio" name="tipoConversao" id="tipoConversao" value="anosLuz">
+      <label for="tipoConversao"></label>
+      
+    </div>
   </div>
+
   <script>
     var tipoConversao, valor, total;
 
