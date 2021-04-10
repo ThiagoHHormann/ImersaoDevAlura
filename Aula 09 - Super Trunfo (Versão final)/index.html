@@ -139,15 +139,13 @@
     }
 
     function sortearCarta() {
-        var numeroCartaMaquina = parseInt(Math.random() * 3)
+        var numeroCartaMaquina = parseInt(Math.random() * cartas.length)
         cartaMaquina = cartas[numeroCartaMaquina]
+        cartas.splice(numeroCartaMaquina, 1)
 
-        var numeroCartaJogador = parseInt(Math.random() * 3)
-        while (numeroCartaJogador == numeroCartaMaquina) {
-            numeroCartaJogador = parseInt(Math.random() * 3)
-        }
+        var numeroCartaJogador = parseInt(Math.random() * cartas.length)  
         cartaJogador = cartas[numeroCartaJogador]
-        console.log(cartaJogador)
+        cartas.splice(numeroCartaJogador, 1)     
 
         document.getElementById('btnSortear').disabled = true
         document.getElementById('btnJogar').disabled = false
@@ -195,12 +193,25 @@
             htmlResultado = '<p class="resultado-final">Empatou</p>'
         }
 
+        if(cartas.length == 0) {
+          alert("Fim de Jogo")
+          if (pontosJogador > pontosMaquina) {
+            htmlResultado = '<p class="resultado-final">Venceu</p>'
+          } else if (pontosMaquina > pontosJogador) {
+            htmlResultado = '<p class="resultado>Perdeu</p>'
+          } else {
+            htmlResultado = '<p class="Resultado">Empate</p>'
+          }
+        } else {
+          document.getElementById("btnProximaRodada").disabled = false
+        }
+
         divResultado.innerHTML = htmlResultado
         document.getElementById("btnJogar").disabled = true
-        document.getElementById("btnProximaRodada").disabled = false
-
+        
         atualizaPlacar()
         exibeCartaMaquina()
+        atualizaQuantidadeDeCartas()
     }
 
     function exibeCartaMaquina() {
@@ -218,6 +229,20 @@
         var html = "<div id='opcoes' class='carta-status --spacing'>"
 
         divCartaMaquina.innerHTML = moldura + nome + html + opcoesTexto + '</div>'
+    }
+
+    function proximaRodada() {
+      var divCartas = document.getElementById("cartas")
+
+      divCartas.innerHTML = `<div id="carta-jogador" class="carta"></div> <div id="carta-maquina" class="carta"></div>`
+
+      document.getElementById("btnSortear").disabled = false
+      document.getElementById("btnJogar").disabled = true
+      document.getElementById("btnProximaRodada").disabled = true
+
+      var divResultado = document.getElementById("resultado")
+
+      divResultado.innerHTML = ""
     }
     </script>
 </body>
